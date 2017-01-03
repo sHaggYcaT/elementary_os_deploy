@@ -29,7 +29,7 @@
 
 - name: Clean Ubuntu packages
   apt:
-    name: {{ item }}
+    name: "{{ item }}"
     state: purge
   with_items:
     - 'plymouth-theme-ubuntu-text'
