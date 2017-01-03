@@ -20,10 +20,18 @@
 - name: install ElementaryOS
   apt:
     name: "elementary-desktop"
-    update_cache: yes
     state: present
 
 - name: Fix cobbler-s settings of network
   template:
     src: interfaces.j2
     dest: /etc/network/interfaces
+
+- name: Clean Ubuntu packages
+  apt:
+    name: {{ item }}
+    state: purge
+  with_items:
+    - 'plymouth-theme-ubuntu-text'
+    - 'unity-greeter'
+    - 'unity-control-center-signon'
