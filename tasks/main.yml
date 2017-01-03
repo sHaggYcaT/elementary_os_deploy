@@ -7,7 +7,10 @@
 
 - name: add ElementaryOS ppa
   apt_repository:
-    repo: 'ppa:elementary-os/daily'
+    repo: "ppa:elementary-os/{{ item }}"
+  with_items:
+    - 'stable'
+    - 'os-patches'
 
 - name: Upgrade system
   apt:
