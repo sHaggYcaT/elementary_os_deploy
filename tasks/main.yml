@@ -1,0 +1,23 @@
+---
+
+- name: replace cobbler-s sources.list to mainline
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+
+- name: Upgrade system
+  apt:
+    upgrade: full
+    update_cache: yes
+
+- name: add ElementaryOS ppa
+  apt_repository:
+    repo: 'ppa:elementary-os/daily'
+
+- name: install ElementaryOS
+  apt:
+    name: "elementary-desktop"
+    update_cache: yes
+    state: present
+
+
