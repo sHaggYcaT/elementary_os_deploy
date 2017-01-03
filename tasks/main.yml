@@ -30,7 +30,7 @@
 - name: Clean Ubuntu packages
   apt:
     name: "{{ item }}"
-    state: purge
+    state: absent
   with_items:
     - 'plymouth-theme-ubuntu-text'
     - 'unity-greeter'
