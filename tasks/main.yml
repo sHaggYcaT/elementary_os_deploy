@@ -19,5 +19,3 @@
     name: "elementary-desktop"
     update_cache: yes
     state: present
-
-
