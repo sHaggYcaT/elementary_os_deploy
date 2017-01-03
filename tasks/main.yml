@@ -5,17 +5,22 @@
     src: sources.list.j2
     dest: /etc/apt/sources.list
 
+- name: add ElementaryOS ppa
+  apt_repository:
+    repo: 'ppa:elementary-os/daily'
+
 - name: Upgrade system
   apt:
     upgrade: full
     update_cache: yes
-
-- name: add ElementaryOS ppa
-  apt_repository:
-    repo: 'ppa:elementary-os/daily'
 
 - name: install ElementaryOS
   apt:
     name: "elementary-desktop"
     update_cache: yes
     state: present
+
+- name: Fix cobbler-s settings of network
+  template:
+    src: interfaces.j2
+    dest: /etc/network/interfaces
