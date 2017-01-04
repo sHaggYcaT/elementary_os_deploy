@@ -79,14 +79,21 @@
 - name: fstab options for root file system
   mount:
     name: /
-    opts: remount-ro,noatime,discard
+    src: "UUID={{ item.uuid }}"
+    opts: "remount-ro,noatime,discard"
+    fstype: "{{ item.fstype }}"
     state: present
+  with_items: ansible_mounts
+  when: item.mount == "/"
 
 - name: fstab options for home file system
   mount:
     name: /home
-    opts: remount-ro,noatime,discard
+    src:  "UUID={{ item.uuid }}"
+    opts: "remount-ro,noatime,discard"
+    fstype: "{{ item.fstype }}"
     state: present
+  with_items: ansible_mounts
+  when: item.mount == "/home"
 
 
-    
