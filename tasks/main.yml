@@ -12,6 +12,10 @@
     - 'stable'
     - 'os-patches'
 
+- name: Add nvidia ppa
+  apt_repository:
+    repo: 'ppa:graphics-drivers/ppa'
+
 - name: Upgrade system
   apt:
     upgrade: full
@@ -21,6 +25,42 @@
   apt:
     name: "elementary-desktop"
     state: present
+
+- name:  get recommended ubuntu drivers
+  shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
+  register: recommended_nvidia
+
+- name: install some packages
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - 'gconf-service'
+    - 'libgconf-2-4'
+    - 'software-properties-common'
+    - 'skype'
+    - "{{ recommended_nvidia.stdout }}"
+    - 'nvidia-settings'
+    - 'xfonts-terminus'
+    - "qemu-kvm"
+    - "qemu"
+    - "virt-manager"
+    - "libvirt-bin"
+    - "ssh"
+
+- name: fix apt-get after install skype i386 packages
+  shell: 'apt-get install -fy'
+
+- name:  set terminal settings
+  shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
+
+- name: download Skype alfa (works together with old 4.3, useful to have 2 different skype online. Also MS have a plans to disable 4.3)
+  get_url:
+    url: 'https://go.skype.com/skypeforlinux-64-alpha.deb'
+    dest: '/tmp/skypeforlinux-64-alpha.deb'
+
+- name: Install a .deb package of the Skype alfa
+  apt:
+    deb: '/tmp/skypeforlinux-64-alpha.deb'
 
 - name: Fix cobbler-s settings of network
   template:
@@ -35,3 +75,15 @@
     - 'plymouth-theme-ubuntu-text'
     - 'unity-greeter'
     - 'unity-control-center-signon'
+
+- name: fstab options for root file system
+  mount:
+    name: /
+    opts: remount-ro,noatime,discard
+    state: present
+
+- name: fstab options for home file system
+  mount:
+    name: /home
+    opts: remount-ro,noatime,discard
+    state: present
