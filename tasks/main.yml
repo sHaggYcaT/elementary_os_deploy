@@ -38,7 +38,8 @@
     - 'libgconf-2-4'
     - 'software-properties-common'
     - 'skype'
-    - "{{ recommended_nvidia.stdout }}"
+   # temporary commented. No nvidia in the test VM. Uncomment in production!
+   # - "{{ recommended_nvidia.stdout }}"
     - 'nvidia-settings'
     - 'xfonts-terminus'
     - "qemu-kvm"
@@ -95,5 +96,3 @@
     state: present
   with_items: ansible_mounts
   when: item.mount == "/home"
-
-
