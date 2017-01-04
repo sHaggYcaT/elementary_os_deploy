@@ -87,3 +87,6 @@
     name: /home
     opts: remount-ro,noatime,discard
     state: present
+
+
+    
