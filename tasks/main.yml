@@ -28,7 +28,6 @@
   apt:
     name: "elementary-desktop"
     state: present
-    update_cache: yes
 
 - name:  get recommended ubuntu drivers
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
@@ -37,6 +36,7 @@
 - name: install some packages
   apt:
     name: "{{ item }}"
+    update_cache: yes
   with_items:
     - 'gconf-service'
     - 'libgconf-2-4'
