@@ -15,9 +15,9 @@
     - 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /'
 
 - name: Add owncloud apt key
-    apt_key:
-      url: "http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_16.04/Release.key"
-      state: present
+  apt_key:
+    url: "http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_16.04/Release.key"
+    state: present
 
 - name: Upgrade system
   apt:
