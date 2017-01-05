@@ -30,21 +30,6 @@
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
   register: recommended_nvidia
 
-- name: Accept steam's question
-  debconf:
-    name: 'steam'
-    question: 'steam/question'
-    value: ' I AGREE'
-    vtype: select
-
-- name: Accept steam's license
-  debconf:
-    name: 'steam'
-    question: 'steam/license'
-    value: ''
-    vtype: note
-
-
 - name: install some packages
   apt:
     name: "{{ item }}"
@@ -64,9 +49,13 @@
     - "ssh"
     - 'atop'
     - 'htop'
-    - 'steam'
-    #steam's suggestion
+    - 'chromium-browser'
+    - 'firefox'
+    - 'adobe-flashplugin'
+       #steam's suggestion and depency
     - 'xfonts-cyrillic'
+    - 'curl'
+
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
@@ -79,9 +68,31 @@
     url: 'https://go.skype.com/skypeforlinux-64-alpha.deb'
     dest: '/tmp/skypeforlinux-64-alpha.deb'
 
-- name: Install a .deb package of the Skype alfa
+- name: download latest Steam
+  get_url:
+    url: 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb'
+    dest: '/tmp/steam.deb'
+
+- name: Accept steam's question
+  debconf:
+    name: 'steam'
+    question: 'steam/question'
+    value: ' I AGREE'
+    vtype: select
+
+- name: Accept steam's license
+  debconf:
+    name: 'steam'
+    question: 'steam/license'
+    value: ''
+    vtype: note
+
+- name: Install a .deb package of the Skype alfa and Steam
   apt:
-    deb: '/tmp/skypeforlinux-64-alpha.deb'
+    deb: "{{ item }}"
+  with_items:
+   - '/tmp/skypeforlinux-64-alpha.deb'
+   - '/tmp/steam.deb'
 
 - name: Fix cobbler-s settings of network
   template:
