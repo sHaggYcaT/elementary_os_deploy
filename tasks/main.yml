@@ -43,6 +43,7 @@
     question: 'steam/license'
     value: ''
     vtype: note
+    
 
 - name: install some packages
   apt:
