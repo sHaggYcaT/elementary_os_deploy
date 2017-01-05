@@ -28,6 +28,7 @@
   apt:
     name: "elementary-desktop"
     state: present
+    update_cache: yes
 
 - name:  get recommended ubuntu drivers
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
@@ -58,6 +59,7 @@
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
+
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
 
