@@ -81,7 +81,7 @@
   mount:
     name: /
     src: "UUID={{ item.uuid }}"
-    opts: "rw,remount-ro,noatime,discard"
+    opts: "rw,errors=remount-ro,noatime,discard"
     fstype: "{{ item.fstype }}"
     state: present
   with_items: ansible_mounts
@@ -91,7 +91,7 @@
   mount:
     name: /home
     src:  "UUID={{ item.uuid }}"
-    opts: "rw,remount-ro,noatime,discard"
+    opts: "rw,errors=remount-ro,noatime,discard"
     fstype: "{{ item.fstype }}"
     state: present
   with_items: ansible_mounts
