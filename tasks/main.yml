@@ -33,17 +33,16 @@
 - name: Accept steam's question
   debconf:
     name: 'steam'
-    question: 'question'
+    question: 'steam/question'
     value: 'I AGREE'
     vtype: select
 
 - name: Accept steam's license
   debconf:
     name: 'steam'
-    question: 'license'
+    question: 'steam/license'
     value: ''
     vtype: note
-
 
 - name: install some packages
   apt:
