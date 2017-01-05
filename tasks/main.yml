@@ -30,6 +30,19 @@
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
   register: recommended_nvidia
 
+- name: Accept steam's licence
+  debconf:
+    name: 'steam'
+    question: 'question'
+    value: 'I AGREE'
+    vtype: select
+  debconf:
+    name: 'steam'
+    question: 'license'
+    value: ''
+    vtype: note
+
+
 - name: install some packages
   apt:
     name: "{{ item }}"
@@ -52,18 +65,6 @@
     - 'steam'
     #steam's suggestion
     - 'xfonts-cyrillic'
-
-- name: Accept steam's licence
-  debconf:
-    name: 'steam'
-    question: 'steam/question'
-    value: 'I AGREE'
-    vtype: select
-  debconf:
-    name: 'steam'
-    question: 'steam/license'
-    value: ''
-    vtype: note
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
