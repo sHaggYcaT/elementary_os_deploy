@@ -1,18 +1,31 @@
 ---
 
-- name: replace cobbler-s sources.list to mainline
-  template:
-    src: sources.list.j2
-    dest: /etc/apt/sources.list
+#- name: replace cobbler-s sources.list to mainline
+#  template:
+#    src: sources.list.j2
+#    dest: /etc/apt/sources.list
 
-- name: add ElementaryOS ppa, nvidia ppa, and owncloud official repo
+#absent
+
+- name: delete cobbler's sources.list
+  file:
+    path: '/etc/apt/sources.list'
+    state: absent
+
+- name: add Oficial Ubuntu repos, ElementaryOS ppa, nvidia ppa, and owncloud official repo
   apt_repository:
     repo: "{{ item }}"
+    update_cache: yes
   with_items:
     - 'ppa:elementary-os/stable'
     - 'ppa:elementary-os/os-patches'
     - 'ppa:graphics-drivers/ppa'
     - 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /'
+    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse'
+    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse'
+    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse'
+    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse'
+    - 'deb http://archive.canonical.com/ubuntu xenial partner'
 
 - name: Add owncloud apt key
   apt_key:
