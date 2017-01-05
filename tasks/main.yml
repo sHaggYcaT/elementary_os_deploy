@@ -5,16 +5,19 @@
     src: sources.list.j2
     dest: /etc/apt/sources.list
 
-- name: add ElementaryOS ppa
+- name: add ElementaryOS ppa, nvidia ppa, and owncloud official repo
   apt_repository:
-    repo: "ppa:elementary-os/{{ item }}"
+    repo: "{{ item }}"
   with_items:
-    - 'stable'
-    - 'os-patches'
+    - 'ppa:elementary-os/stable'
+    - 'ppa:elementary-os/os-patches'
+    - 'ppa:graphics-drivers/ppa'
+    - 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /'
 
-- name: Add nvidia ppa
-  apt_repository:
-    repo: 'ppa:graphics-drivers/ppa'
+- name: Add owncloud apt key
+    apt_key:
+      url: "http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_16.04/Release.key"
+      state: present
 
 - name: Upgrade system
   apt:
@@ -55,6 +58,7 @@
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
+    - 'owncloud-client'
 
 
 - name: fix apt-get after install skype i386 packages
