@@ -30,12 +30,14 @@
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
   register: recommended_nvidia
 
-- name: Accept steam's licence
+- name: Accept steam's question
   debconf:
     name: 'steam'
     question: 'question'
     value: 'I AGREE'
     vtype: select
+
+- name: Accept steam's license
   debconf:
     name: 'steam'
     question: 'license'
