@@ -58,11 +58,13 @@
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
-    - 'owncloud-client'
-
-
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
+
+- name: Install owncloud packages
+  apt:
+    name: 'owncloud-client'
+    allow_unauthenticated: yes
 
 - name:  set terminal settings
   shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
