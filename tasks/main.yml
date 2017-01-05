@@ -34,7 +34,7 @@
   debconf:
     name: 'steam'
     question: 'steam/question'
-    value: 'I AGREE'
+    value: ' I AGREE'
     vtype: select
 
 - name: Accept steam's license
@@ -43,7 +43,7 @@
     question: 'steam/license'
     value: ''
     vtype: note
-    
+
 
 - name: install some packages
   apt:
