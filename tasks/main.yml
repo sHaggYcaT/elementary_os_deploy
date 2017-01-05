@@ -63,8 +63,9 @@
 
 - name: Install owncloud packages
   apt:
-    name: 'owncloud-client'
+    name: 'owncloud-client-nautilus'
     allow_unauthenticated: yes
+
 
 - name:  set terminal settings
   shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
