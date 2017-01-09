@@ -12,7 +12,7 @@
     path: '/etc/apt/sources.list'
     state: absent
 
-- name: add Oficial Ubuntu repos, ElementaryOS ppa, nvidia ppa, and owncloud official repo
+- name: add Oficial Ubuntu repos, ElementaryOS PPAs, nvidia ppa, and owncloud official repo
   apt_repository:
     repo: "{{ item }}"
     update_cache: yes
@@ -21,10 +21,10 @@
     - 'ppa:elementary-os/os-patches'
     - 'ppa:graphics-drivers/ppa'
     - 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_16.04/ /'
-    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse'
-    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse'
-    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse'
-    - 'deb http://ru.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse'
+    - "deb http://{{ apt_mirror_county }}.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse"
+    - "deb http://{{ apt_mirror_county }}.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse"
+    - "deb http://{{ apt_mirror_county }}.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse"
+    - "deb http://{{ apt_mirror_county }}.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse"
     - 'deb http://archive.canonical.com/ubuntu xenial partner'
 
 - name: Add owncloud apt key
@@ -98,19 +98,19 @@
     url: 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb'
     dest: '/tmp/steam.deb'
 
-- name: Accept steam's question
-  debconf:
-    name: 'steam'
-    question: 'steam/question'
-    value: ' I AGREE'
-    vtype: select
-
-- name: Accept steam's license
-  debconf:
-    name: 'steam'
-    question: 'steam/license'
-    value: ''
-    vtype: note
+#- name: Accept steam's question
+#  debconf:
+#    name: 'steam'
+#    question: 'steam/question'
+#    value: ' I AGREE'
+#    vtype: select
+#
+#- name: Accept steam's license
+#  debconf:
+#    name: 'steam'
+#    question: 'steam/license'
+#    value: ''
+#    vtype: note
 
 - name: Install a .deb package of the Skype alfa and Steam
   apt:
