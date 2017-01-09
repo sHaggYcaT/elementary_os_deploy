@@ -46,6 +46,9 @@
   shell: "ubuntu-drivers devices | grep recommended | awk '{print $3}'"
   register: recommended_nvidia
 
+- name: fix apt-get before install skype i386 packages
+  shell: 'apt-get update'
+
 - name: install some packages
   apt:
     name: "{{ item }}"
