@@ -108,10 +108,9 @@
 
 - name: touch .bashrc files
   file:
-    state: present
+    state: file
     dest: "/home/{{ item }}/.bashrc"
   with_items: "{{ system_users.stdout_lines }}"
-
 
 - name: set terminal settings for all users using bashrc - in the installation
   lineinfile:
