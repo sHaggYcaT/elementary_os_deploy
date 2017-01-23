@@ -59,7 +59,7 @@
     - 'software-properties-common'
     - 'skype'
    # temporary commented. No nvidia in the test VM. Uncomment in production!
-   # - "{{ recommended_nvidia.stdout }}"
+    - "{{ recommended_nvidia.stdout }}"
     - 'nvidia-settings'
     - 'xfonts-terminus'
     - "qemu-kvm"
@@ -111,6 +111,10 @@
 #    question: 'steam/license'
 #    value: ''
 #    vtype: note
+
+- name: blacklist nouveau driver
+  name: nouveau
+  state: present
 
 - name: Install a .deb package of the Skype alfa and Steam
   apt:
