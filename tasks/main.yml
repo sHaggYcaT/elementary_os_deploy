@@ -111,6 +111,7 @@
     state: touch
     dest: "/home/{{ item }}/.bashrc"
   when: item != "root"
+  become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
 
 - name: set terminal settings for all users using bashrc - add mark line
