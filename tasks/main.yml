@@ -110,8 +110,8 @@
   file:
     state: touch
     dest: "/home/{{ item }}/.bashrc"
+    when: system_users.stdout_lines != "root"
   with_items: "{{ system_users.stdout_lines }}"
-  when: system_users.stdout_lines != "root"
 
 - name: set terminal settings for all users using bashrc - in the installation
   lineinfile:
