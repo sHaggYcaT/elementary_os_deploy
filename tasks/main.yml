@@ -75,6 +75,17 @@
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
+    - 'xfonts-cyrillic'
+    - 'curl'
+    - 'nfs-common'
+    - 'mythes-en-us'
+    - 'mythes-ru'
+    - 'libreoffice-writer'
+    - 'libreoffice-pdfimport'
+    - 'libreoffice-calc'
+    - 'smplayer'
+    - 'remmina'
+    - 'qbittorrent'
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
