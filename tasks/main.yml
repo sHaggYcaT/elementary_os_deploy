@@ -99,6 +99,9 @@
   shell: "cat /etc/passwd | grep bash | awk -F: '{print $1}'"
   register: system_users
 
+
+- debug: var=system_users
+
 - name:  set terminal settings for all users with bash shell
   shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
   become_user: "{{ item }}"
