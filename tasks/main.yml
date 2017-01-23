@@ -99,7 +99,7 @@
   shell: "cat /etc/passwd | grep bash | awk -F: '{print $1}'"
   register: system_users
 
-- debug: var=system_users
+#- debug: var=system_users
 
 - name:  set terminal settings for all users - inside X window session
   shell: "gsettings set org.pantheon.terminal.settings font \"Terminus {{ shell_font_size }}\""
@@ -113,14 +113,24 @@
   when: item != "root"
   with_items: "{{ system_users.stdout_lines }}"
 
-- name: set terminal settings for all users using bashrc - in the installation
+- name: set terminal settings for all users using bashrc - add mark line
   lineinfile:
     dest: "/home/{{ item }}/.bashrc"
-    line: 'gsettings set org.pantheon.terminal.settings font "Terminus {{ shell_font_size }}"'
+    line: '#in next line we setting up terminal font'
   when: item != "root"
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
   run_once: true
+
+- name: set terminal settings for all users using bashrc - in the installation
+  lineinfile:
+    dest: "/home/{{ item }}/.bashrc"
+    line: 'gsettings set org.pantheon.terminal.settings font "Terminus {{ shell_font_size }}"'
+    regexp: '^#in next line we setting up terminal font'
+    insertafter: '#in next line we setting up terminal font'
+  when: item != "root"
+  become_user: "{{ item }}"
+  with_items: "{{ system_users.stdout_lines }}"
 
 - name: download Skype alfa (works together with old 4.3, useful to have 2 different skype online. Also MS have a plans to disable 4.3)
   get_url:
