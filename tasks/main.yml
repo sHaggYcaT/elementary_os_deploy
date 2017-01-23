@@ -108,7 +108,7 @@
 
 - name: touch .bashrc files
   file:
-    state: file
+    state: touch
     dest: "/home/{{ item }}/.bashrc"
   with_items: "{{ system_users.stdout_lines }}"
 
