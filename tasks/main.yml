@@ -99,11 +99,10 @@
   shell: "cat /etc/passwd | grep bash | awk -F: '{print $1}'"
   register: system_users
 
-
 - debug: var=system_users
 
 - name:  set terminal settings for all users with bash shell
-  shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
+  shell: "gsettings set org.pantheon.terminal.settings font {{ shell_font }}"
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
 
@@ -156,6 +155,10 @@
     - 'plymouth-theme-ubuntu-text'
     - 'unity-greeter'
     - 'unity-control-center-signon'
+
+- name: set timezone
+  timezone:
+    name: "{{ desktop_timezone }}"
 
 - name: fstab options for root file system
   mount:
