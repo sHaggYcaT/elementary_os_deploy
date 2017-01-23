@@ -75,6 +75,15 @@
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
+    - 'nfs-common'
+    - 'mythes-en-us'
+    - 'mythes-ru'
+    - 'libreoffice-writer'
+    - 'libreoffice-pdfimport'
+    - 'libreoffice-calc'
+    - 'smplayer'
+    - 'remmina'
+    - 'qbittorrent'
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
@@ -109,9 +118,7 @@
 #  debconf:
 #    name: 'steam'
 #    question: 'steam/license'
-#    value: ''
-#    vtype: note
-- name: blacklist nouveau driver
+#    value: ''246979@#    vtype: noteame: blacklist nouveau driver
   kernel_blacklist:
     name: nouveau
     state: present
