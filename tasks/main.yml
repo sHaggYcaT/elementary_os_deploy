@@ -117,10 +117,10 @@
   lineinfile:
     dest: "/home/{{ item }}/.bashrc"
     line: 'gsettings set org.pantheon.terminal.settings font \"Terminus {{ shell_font_size }}\"'
+    when: system_users.stdout_lines != "root"
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
   run_once: true
-  when: system_users.stdout_lines != "root"
 
 - name: download Skype alfa (works together with old 4.3, useful to have 2 different skype online. Also MS have a plans to disable 4.3)
   get_url:
