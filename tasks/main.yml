@@ -156,11 +156,6 @@
     - 'unity-greeter'
     - 'unity-control-center-signon'
 
-- name: set timezone to Asia/Tokyo
-  timezone:
-    name: Asia/Tokyo
-  become: yes
-
 - name: fstab options for root file system
   mount:
     name: /
