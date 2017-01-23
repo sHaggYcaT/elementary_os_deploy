@@ -111,10 +111,10 @@
 #    question: 'steam/license'
 #    value: ''
 #    vtype: note
-
 - name: blacklist nouveau driver
-  name: nouveau
-  state: present
+  kernel_blacklist:
+    name: nouveau
+    state: present
 
 - name: Install a .deb package of the Skype alfa and Steam
   apt:
