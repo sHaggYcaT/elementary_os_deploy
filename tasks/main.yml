@@ -108,7 +108,7 @@
 
 - name: set terminal settings for all users using bashrc - in the installation
   lineinfile:
-    path: "/home/{{ item }}/.bashrc"
+    dest: "/home/{{ item }}/.bashrc"
     line: 'gsettings set org.pantheon.terminal.settings font \"Terminus {{ shell_font_size }}\"'
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
