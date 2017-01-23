@@ -102,7 +102,7 @@
 - name:  set terminal settings for all users with bash shell
   shell: "gsettings set org.pantheon.terminal.settings font 'Terminus 36'"
   become_user: "{{ item }}"
-    with_items: "{{ system_users.results }}"
+  with_items: "{{ system_users.results }}"
 
 - name: download Skype alfa (works together with old 4.3, useful to have 2 different skype online. Also MS have a plans to disable 4.3)
   get_url:
