@@ -106,6 +106,13 @@
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
 
+- name: touch .bashrc files
+  file:
+    state: present
+    dest: "/home/{{ item }}/.bashrc"
+  with_items: "{{ system_users.stdout_lines }}"
+
+
 - name: set terminal settings for all users using bashrc - in the installation
   lineinfile:
     dest: "/home/{{ item }}/.bashrc"
