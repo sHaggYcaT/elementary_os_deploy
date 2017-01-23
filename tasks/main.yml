@@ -117,7 +117,7 @@
 - name: set terminal settings for all users using bashrc - add mark line
   lineinfile:
     dest: "/home/{{ item }}/.bashrc"
-    line: '#in next line we setting up terminal font'
+    line: 'gsettings set org.pantheon.terminal.settings font "Terminus {{ shell_font_size }}"'
   when: item != "root"
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
@@ -127,8 +127,9 @@
   lineinfile:
     dest: "/home/{{ item }}/.bashrc"
     line: 'gsettings set org.pantheon.terminal.settings font "Terminus {{ shell_font_size }}"'
-    regexp: '^#in next line we setting up terminal font'
-    insertafter: '#in next line we setting up terminal font'
+    regexp: '^#gsettings set org.pantheon.terminal.settings font'
+    #insertafter: '#in next line we setting up terminal font'
+    #backrefs
   when: item != "root"
   become_user: "{{ item }}"
   with_items: "{{ system_users.stdout_lines }}"
