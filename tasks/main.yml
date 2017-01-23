@@ -128,7 +128,6 @@
     dest: "/home/{{ item }}/.bashrc"
     replace: 'gsettings set org.pantheon.terminal.settings font "Terminus {{ shell_font_size }}"'
     regexp: '^gsettings set org\.pantheon\.terminal\.settings font [0-9]+'
-    backrefs: yes
     #insertafter: '#in next line we setting up terminal font'
     #backrefs
   when: item != "root"
