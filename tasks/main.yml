@@ -58,8 +58,6 @@
     - 'libgconf-2-4'
     - 'software-properties-common'
     - 'skype'
-   # temporary commented. No nvidia in the test VM. Uncomment in production!
-    - "{{ recommended_nvidia.stdout }}"
     - 'nvidia-settings'
     - 'xfonts-terminus'
     - "qemu-kvm"
@@ -89,6 +87,12 @@
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
+
+- name: Install nvidia drivers if the system has nvidia video card
+  apt:
+    name: "{{ recommended_nvidia.stdout }}"
+    update_cache: yes
+  when: recommended_nvidia.stdout != ""
 
 - name: Install owncloud packages
   apt:
