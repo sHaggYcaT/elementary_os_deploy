@@ -172,7 +172,7 @@
 
 - name: Create Telegram desktop file
   template:
-    src: 'telegramdesktop.desktop'
+    src: 'telegramdesktop.desktop.j2'
     dest: '/usr/share/applications/telegramdesktop.desktop'
 
 - name: Reload desktop files
