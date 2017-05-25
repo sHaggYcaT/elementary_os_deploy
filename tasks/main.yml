@@ -149,6 +149,20 @@
     url: 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb'
     dest: '/tmp/steam.deb'
 
+
+- name: download latest Telegram
+  get_url:
+    url: 'https://telegram.org/dl/desktop/linux'
+    dest: '/tmp/tsetup.tar.xz'
+
+- name: untar Telegram
+  unarchive:
+    creates: '/opt/Telegram/Telegram'
+    group: 'sudo'
+    mode: 'u=rwx,g=rwx,o=rx'
+    src: '/tmp/tsetup.tar.xz'
+    dest: '/opt/'
+
 #- name: Accept steam's question
 #  debconf:
 #    name: 'steam'
