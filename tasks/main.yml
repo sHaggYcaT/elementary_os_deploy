@@ -170,6 +170,14 @@
     dest: '/usr/bin/Telegram'
     state: link
 
+- name: Create Telegram desktop file
+  template:
+    src: 'telegramdesktop.desktop'
+    dest: '/usr/share/applications/telegramdesktop.desktop'
+
+- name: Reload desktop files
+  shell: 'xdg-desktop-menu forceupdate'
+
 #- name: Accept steam's question
 #  debconf:
 #    name: 'steam'
