@@ -163,6 +163,13 @@
     src: '/tmp/tsetup.tar.xz'
     dest: '/opt/'
 
+
+- name: Simlink to Telegram binary
+  file:
+    src: '/opt/Telegram/Telegram'
+    dest: '/usr/bin/Telegram'
+    state: link
+
 #- name: Accept steam's question
 #  debconf:
 #    name: 'steam'
