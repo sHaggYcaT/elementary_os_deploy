@@ -176,7 +176,7 @@
     dest: '/usr/share/applications/telegramdesktop.desktop'
 
 - name: Reload desktop files
-  shell: 'xdg-desktop-menu forceupdate'
+  shell: 'xdg-desktop-menu install /usr/share/applications/telegramdesktop.desktop'
 
 #- name: Accept steam's question
 #  debconf:
