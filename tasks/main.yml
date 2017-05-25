@@ -173,10 +173,10 @@
 - name: Create Telegram desktop file
   template:
     src: 'telegramdesktop.desktop.j2'
-    dest: '/usr/share/applications/telegramdesktop.desktop'
+    dest: '/usr/share/applications/telegram-desktop.desktop'
 
 - name: Reload desktop files
-  shell: 'xdg-desktop-menu install /usr/share/applications/telegramdesktop.desktop'
+  shell: 'xdg-desktop-menu install /usr/share/applications/telegram-desktop.desktop'
 
 #- name: Accept steam's question
 #  debconf:
