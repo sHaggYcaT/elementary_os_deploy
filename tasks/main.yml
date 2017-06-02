@@ -58,8 +58,6 @@
     - 'libgconf-2-4'
     - 'software-properties-common'
     - 'skype'
-   # temporary commented. No nvidia in the test VM. Uncomment in production!
-    - "{{ recommended_nvidia.stdout }}"
     - 'nvidia-settings'
     - 'xfonts-terminus'
     - "qemu-kvm"
@@ -72,6 +70,7 @@
     - 'chromium-browser'
     - 'firefox'
     - 'adobe-flashplugin'
+    - 'tor'
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
     - 'curl'
@@ -89,6 +88,12 @@
 
 - name: fix apt-get after install skype i386 packages
   shell: 'apt-get install -fy'
+
+- name: Install nvidia drivers if the system has nvidia video card
+  apt:
+    name: "{{ recommended_nvidia.stdout }}"
+    update_cache: yes
+  when: recommended_nvidia.stdout != ""
 
 - name: Install owncloud packages
   apt:
@@ -143,6 +148,35 @@
   get_url:
     url: 'https://steamcdn-a.akamaihd.net/client/installer/steam.deb'
     dest: '/tmp/steam.deb'
+
+
+- name: download latest Telegram
+  get_url:
+    url: 'https://telegram.org/dl/desktop/linux'
+    dest: '/tmp/tsetup.tar.xz'
+
+- name: untar Telegram
+  unarchive:
+    creates: '/opt/Telegram/Telegram'
+    group: 'sudo'
+    mode: 'u=rwx,g=rwx,o=rx'
+    src: '/tmp/tsetup.tar.xz'
+    dest: '/opt/'
+
+
+- name: Simlink to Telegram binary
+  file:
+    src: '/opt/Telegram/Telegram'
+    dest: '/usr/bin/telegram'
+    state: link
+
+- name: Create Telegram desktop file
+  template:
+    src: 'telegramdesktop.desktop.j2'
+    dest: '/usr/share/applications/telegram-desktop.desktop'
+
+- name: Reload desktop files
+  shell: 'xdg-desktop-menu install /usr/share/applications/telegram-desktop.desktop'
 
 #- name: Accept steam's question
 #  debconf:
