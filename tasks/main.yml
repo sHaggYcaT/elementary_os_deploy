@@ -69,7 +69,7 @@
     - 'htop'
     - 'chromium-browser'
     - 'firefox'
-    - 'adobe-flashplugin'
+#    - 'adobe-flashplugin'
     - 'tor'
        #steam's suggestion and depency
     - 'xfonts-cyrillic'
